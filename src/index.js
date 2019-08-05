@@ -1,23 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-// add @font-face rules in CSS:
 import 'typeface-roboto';
-// Typography injects CSS classes for each variant
-// (with Roboto as first font-family):
-import Typography from '@material-ui/core/Typography';
-// font-icons are installed locally directly in the 'public' folder
-import Icon from '@material-ui/core/Icon';
-import { AccessAlarm } from '@material-ui/icons';
+import { CssBaseline } from '@material-ui/core';
+import App from './App';
 
+// Material-UI components come with a default theme
+// To customize the theme we need to use ThemeProvider 
+// to inject a new theme
+import { ThemeProvider } from '@material-ui/styles';
+import theme from './theme';
 
 ReactDOM.render(
-  <div>
-    <Typography variant="h1">
-      MUI Mailbox
-    </Typography>
-    <Icon>star</Icon>
-    <AccessAlarm />
-  </div>,
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <App />
+  </ThemeProvider>,
   document.getElementById('root')
 );
