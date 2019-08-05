@@ -13,12 +13,13 @@ const useStyles = makeStyles(theme => ({
     minHeight: '100vh',
   },
   main: {
-    marginTop: theme.spacing(8),
-    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+    padding: 0,
+    flex: 1
   },
   footer: {
-    padding: theme.spacing(2),
-    marginTop: 'auto'
+    padding: theme.spacing(2)
   },
 }));
 
@@ -32,12 +33,12 @@ export default ({header, footer, mainContent}) => {
         {header}
       </AppBar>
 
-      <Container className={classes.main} maxWidth="sm">
+      <Container className={classes.main}>
         {mainContent}
       </Container>
 
       <footer className={classes.footer}>
-        <Container maxWidth="sm">
+        <Container>
           {footer}
         </Container>
       </footer>
