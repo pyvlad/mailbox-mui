@@ -1,19 +1,31 @@
 import React from 'react'
-import {Typography} from '@material-ui/core'
+import {
+  Typography,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText
+} from '@material-ui/core'
+import FolderIcon from '@material-ui/icons/FolderOpen'
 
 export default ({categories}) => (
   <React.Fragment>
     <Typography variant="h4" component="h2">
       Categories
     </Typography>
-    {
-      categories.map(
-        ({id, name}) => (
-          <Typography variant="h6" key={id}>
-            {name}
-          </Typography>
+    <List component="nav" aria-label="main mailbox folders">
+      {
+        categories.map(
+          ({id, name}) => (
+            <ListItem button key={id}>
+              <ListItemIcon>
+                <FolderIcon />
+              </ListItemIcon>
+              <ListItemText primary={name} />
+            </ListItem>
+          )
         )
-      )
-    }
+      }
+    </List>
   </React.Fragment>
 )
