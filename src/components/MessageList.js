@@ -2,7 +2,8 @@ import React from 'react'
 import {
   Typography,
   Divider,
-  List
+  List,
+  ListItem
 } from '@material-ui/core'
 import ArrowIcon from '@material-ui/icons/ArrowRightAlt'
 import {makeStyles} from '@material-ui/styles'
@@ -61,30 +62,39 @@ const TitleItem = ({title}) => (
 )
 
 
-export default ({
-    categoryName, 
-    messages
-}) => (
-  <React.Fragment>
-    <Typography variant="h4" component="h2">
-      {categoryName}
-    </Typography>
-    <List>
-    {
-      (messages.length)
-      ? messages.map(
-          ({id, date, from, to, title}, index) => (
-            <React.Fragment key={id}>
-              { index ? null : <Divider /> }
-              <FromToItem from={from} to={to} />
-              <DateItem date={date} />
-              <TitleItem title={title} />
-              <Divider />
-            </React.Fragment>
-          )
-        )
-      : <Typography variant="body1">No items in this category.</Typography>
-    }
-    </List>
-  </React.Fragment>
-)
+export default class extends React.Component {
+  render () {
+    let {categoryName, messages, onMessageSelect} = this.props
+    return (
+      <React.Fragment>
+        <Typography variant="h4" component="h2">
+          {categoryName}
+        </Typography>
+        <List>
+        {
+          (messages.length)
+          ? messages.map(
+              ({id, date, from, to, title}, index) => (
+                <React.Fragment key={id}>
+                  { index ? null : <Divider /> }
+                  <ListItem  
+                    button 
+                    onClick={() => onMessageSelect(id)}
+                  >
+                    <div style={{width: "100%"}}>
+                      <FromToItem from={from} to={to} />
+                      <DateItem date={date} />
+                      <TitleItem title={title} />
+                    </div>
+                  </ListItem>
+                  <Divider />
+                </React.Fragment>
+              )
+            )
+          : <Typography variant="body1">No items in this category.</Typography>
+        }
+        </List>
+      </React.Fragment>
+    )
+  }
+}
