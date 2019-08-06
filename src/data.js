@@ -179,4 +179,4 @@ DAMN!`
   },
 ]
 
-export { categories, messages }
+export default { categories, messages }
