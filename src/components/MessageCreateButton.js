@@ -1,17 +1,35 @@
 import React from 'react'
+import {makeStyles} from '@material-ui/styles'
 import {
   Fab, 
-  Icon
+  Icon,
+  Typography
  } from '@material-ui/core'
 
 
-export default ({handleClick}) => (
-  <Fab 
+ const useStyles = makeStyles(theme => ({
+  buttonIcon: {
+    marginRight: theme.spacing(1)
+  },
+  buttonLabel: {
+    lineHeight: 1
+  }
+}));
+
+
+export default ({handleClick}) => {
+  const classes = useStyles()
+
+  return <Fab 
+    variant="extended"
     color="secondary" 
     aria-label="edit" 
     size="medium"
     onClick={handleClick}
   >
-    <Icon>edit_icon</Icon>
+    <Icon className={classes.buttonIcon}>edit_icon</Icon>
+    <Typography variant="body1" className={classes.buttonLabel}>
+      New Message
+    </Typography>
   </Fab>
-)
+}

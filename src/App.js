@@ -1,8 +1,7 @@
 import React from 'react'
 
 import Layout from './components/Layout'
-import Header from './components/Header'
-import Footer from './components/Footer'
+import NavMenu from './components/NavMenu'
 import MessageFolders from './components/MessageFolders'
 import MessageList from './components/MessageList'
 import MessageSingle from './components/MessageSingle'
@@ -123,22 +122,20 @@ export default class extends React.Component {
       )
     }
 
+    let navMenu = <NavMenu>
+      <MessageCreateButton  
+        handleClick={this.handleMessageCreate}
+      />
+      <MessageFolders 
+        categories={this.categories} 
+        onCategorySelect={this.handleCategorySelect}
+      />
+    </NavMenu>
+
+
     return (
       <Layout 
-        header={
-          <Header>
-            <MessageCreateButton  
-              handleClick={this.handleMessageCreate}
-            />
-          </Header>
-        }
-        footer={<Footer />} 
-        leftPane={
-          <MessageFolders 
-            categories={this.categories} 
-            onCategorySelect={this.handleCategorySelect}
-          />
-        }
+        leftPane={navMenu}
         rightPane={content}
       />
     )
