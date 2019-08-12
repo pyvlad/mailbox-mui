@@ -45,7 +45,9 @@ export default ({
   categoryId,
   date,
   title,
-  body
+  body,
+  onMessageDelete,
+  onMessageSpam
 }) => {
   const classes = useStyles()
 
@@ -58,10 +60,10 @@ export default ({
           </Typography>
         </div>
         <div className={classes.actions}>
-          <IconButton className={classes.action}>
+          <IconButton className={classes.action} onClick={onMessageDelete}>
             <Icon>delete</Icon>
           </IconButton>
-          <IconButton className={classes.action}>
+          <IconButton className={classes.action} onClick={onMessageSpam}>
             <Icon>not_interested</Icon>
           </IconButton>
         </div>

@@ -29,6 +29,8 @@ export default class extends React.Component {
     this.handleMessageSelect = this.handleMessageSelect.bind(this)
     this.handleMessageCreate = this.handleMessageCreate.bind(this)
     this.handleMessageSend = this.handleMessageSend.bind(this)
+    this.handleMessageDelete = this.handleMessageDelete.bind(this)
+    this.handleMessageSpam = this.handleMessageSpam.bind(this)
   }
 
   // This method should extract messages from DB
@@ -72,6 +74,33 @@ export default class extends React.Component {
     })
   }
 
+  handleMessageDelete(messageId) {
+    this.messages = this.messages.filter((msg) => (msg.id !== messageId))
+
+    this.setState({
+      viewType: "categoryView",
+      currentCategory: {
+        id: "all",
+        name: "All Messages"
+      },
+      currentMessage: {}
+    })
+  }
+
+  handleMessageSpam(messageId) {
+    const msgObj = this.messages.find((msg) => (msg.id === messageId))
+    msgObj["categoryId"] = "spam"
+
+    this.setState({
+      viewType: "categoryView",
+      currentCategory: {
+        id: "all",
+        name: "All Messages"
+      },
+      currentMessage: {}
+    })
+  }
+ 
   // this is here mostly to imitate backend 
   handleMessageSend(msgData) {
     const msgObj = {
@@ -120,7 +149,11 @@ export default class extends React.Component {
     } 
     else if (this.state.viewType === "messageView") {
       content = (
-        <MessageSingle {...this.state.currentMessage } />
+        <MessageSingle 
+          {...this.state.currentMessage } 
+          onMessageDelete={() => this.handleMessageDelete(this.state.currentMessage.id)}
+          onMessageSpam={() => this.handleMessageSpam(this.state.currentMessage.id)}
+        />
       )
     }
     else if (this.state.viewType === "messageCreate") {
