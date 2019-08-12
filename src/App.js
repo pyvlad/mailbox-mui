@@ -7,6 +7,7 @@ import MessageFolders from './components/MessageFolders'
 import MessageList from './components/MessageList'
 import MessageSingle from './components/MessageSingle'
 import MessageCreateForm from './components/MessageCreateForm'
+import MessageCreateButton from './components/MessageCreateButton'
 
 import mockData from './data'
 
@@ -124,7 +125,13 @@ export default class extends React.Component {
 
     return (
       <Layout 
-        header={<Header onMessageCreateClick={this.handleMessageCreate} />}
+        header={
+          <Header>
+            <MessageCreateButton  
+              handleClick={this.handleMessageCreate}
+            />
+          </Header>
+        }
         footer={<Footer />} 
         leftPane={
           <MessageFolders 
