@@ -4,7 +4,8 @@ import {
   List,
   ListItem,
   ListItemIcon,
-  ListItemText
+  ListItemText,
+  Badge
 } from '@material-ui/core'
 import FolderIcon from '@material-ui/icons/FolderOpen'
 import {makeStyles} from '@material-ui/styles'
@@ -36,14 +37,16 @@ export default (props) => {
       <List component="nav" aria-label="main mailbox folders">
         {
           categories.map(
-            ({id, name}) => (
+            ({id, name, amount}) => (
               <ListItem 
                 button 
                 key={id} 
                 onClick={() => onCategorySelect(id)}
               >
                 <ListItemIcon>
-                  <FolderIcon />
+                  <Badge color="primary" badgeContent={amount}>
+                    <FolderIcon />
+                  </Badge>
                 </ListItemIcon>
                 <ListItemText primary={name} />
               </ListItem>

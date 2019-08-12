@@ -33,10 +33,19 @@ export default class extends React.Component {
 
   // This method should extract messages from DB
   getMessagesByCategory(categoryId) {
-    if (categoryId === "all") {
-      return this.messages
+    let msgList = this.messages
+
+    if (categoryId !== "all") {
+      msgList = this.messages.filter(msg => msg.categoryId === categoryId)
     }
-    return this.messages.filter(msg => msg.categoryId === categoryId)
+
+    msgList.sort(function(a, b) {
+      let dateA = new Date(a.date), 
+          dateB = new Date(b.date);
+      return dateB - dateA;
+    });
+    
+    return msgList
   }
 
   handleCategorySelect(categoryId) {
@@ -127,7 +136,11 @@ export default class extends React.Component {
         handleClick={this.handleMessageCreate}
       />
       <MessageFolders 
-        categories={this.categories} 
+        categories={
+          this.categories.map(
+            (cat) => Object.assign(cat, {amount: this.getMessagesByCategory(cat.id).length})
+          )
+        } 
         onCategorySelect={this.handleCategorySelect}
       />
     </NavMenu>

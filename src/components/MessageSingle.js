@@ -4,7 +4,6 @@ import {makeStyles} from '@material-ui/styles'
 import {
   Icon, 
   IconButton,
-  Button,
   Typography,
   List,
   ListItem,
@@ -17,8 +16,6 @@ import {
 
 const useStyles = makeStyles(theme => ({
   container: {
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
   },
   header: {
     display: "flex",
@@ -29,12 +26,14 @@ const useStyles = makeStyles(theme => ({
     textAlign: "right"
   },
   action: {
-    marginLeft: theme.spacing(1),
     color: "#f55"
   },
   title: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2)
+  },
+  direction: {
+    color: theme.palette.primary[theme.palette.type]
   }
 }));
 
@@ -59,23 +58,29 @@ export default ({
           </Typography>
         </div>
         <div className={classes.actions}>
-          <IconButton className={classes.action}><Icon>delete</Icon></IconButton>
-          <IconButton className={classes.action}><Icon>not_interested</Icon></IconButton>
+          <IconButton className={classes.action}>
+            <Icon>delete</Icon>
+          </IconButton>
+          <IconButton className={classes.action}>
+            <Icon>not_interested</Icon>
+          </IconButton>
         </div>
       </header>
       <List className={classes.addressList}>
         <ListItem dense disableGutters>
-          <Button><Typography variant="overline">from</Typography></Button>
           <ListItemAvatar>
-            <Avatar><Icon>image</Icon></Avatar>
+            <Avatar>
+              <Icon>image</Icon>
+            </Avatar>
           </ListItemAvatar>
           <ListItemText primary={from.name} secondary={from.address} />
         </ListItem>
         <Divider variant="inset" component="li" />
         <ListItem dense disableGutters>
-          <Button><Typography variant="overline">to</Typography></Button>
           <ListItemAvatar>
-            <Avatar><Icon>image</Icon></Avatar>
+            <Avatar>
+              <Icon>image</Icon>
+            </Avatar>
           </ListItemAvatar>
           <ListItemText primary={to.name} secondary={to.address} />
         </ListItem>

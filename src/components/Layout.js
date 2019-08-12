@@ -1,5 +1,6 @@
 import React from 'react'
-import {withStyles} from '@material-ui/styles'
+import {withStyles, withTheme} from '@material-ui/styles'
+import withWidth from '@material-ui/core/withWidth'
 import {
   AppBar,
   Container,
@@ -8,7 +9,9 @@ import {
   Hidden,
   Toolbar,
   Typography,
-  Link
+  Link,
+  Avatar,
+  Icon
 } from '@material-ui/core'
 import NavButton from './NavButton'
 
@@ -49,6 +52,9 @@ const useStyles = theme => ({
   mainPaneContent: {
     padding: theme.spacing(1),
     height: "100%"
+  },
+  avatar: {
+    margin: theme.spacing(1)
   }
 });
 
@@ -71,6 +77,8 @@ class Layout extends React.Component {
   render () {
     const {
       classes,
+      width,
+      theme,
       leftPane, 
       rightPane
     } = this.props
@@ -88,16 +96,23 @@ class Layout extends React.Component {
         <AppBar position="static" className={classes.header}>
           <Container className={classes.container}>
             <Toolbar>
-              <Typography variant="h3" component="h1" className={classes.logo}>
-                <Link color="inherit" href="/" underline="none">
-                  MUI MailBox
-                </Link>
-              </Typography>
               <Hidden smUp>
                 <NavButton
                   handleClick={this.handleLeftPaneToggle}
                 />
               </Hidden>
+              <Typography 
+                variant={width === "xs" ? "h4" : "h3"} 
+                component="h1" 
+                className={classes.logo}
+              >
+                <Link color="inherit" href="/" underline="none">
+                  MUI MailBox
+                </Link>
+              </Typography>
+              <Avatar className={classes.avatar}>
+                <Icon>person</Icon>
+              </Avatar>
             </Toolbar>
           </Container>
         </AppBar>
@@ -144,4 +159,4 @@ class Layout extends React.Component {
   }
 }
 
-export default withStyles(useStyles)(Layout)
+export default withTheme(withStyles(useStyles)(withWidth()(Layout)))
