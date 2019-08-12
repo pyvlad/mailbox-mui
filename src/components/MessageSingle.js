@@ -1,41 +1,40 @@
 import React from 'react'
 import {makeStyles} from '@material-ui/styles'
-// TODO: decompose this into several components
-// TODO: rewrite this component with material UI components
+
+import {
+  Icon, 
+  IconButton,
+  Button,
+  Typography,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Avatar,
+  Divider
+} from '@material-ui/core'
+
 
 const useStyles = makeStyles(theme => ({
   container: {
-    padding: theme.spacing(2)
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
   },
   header: {
     display: "flex",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    alignItems: "center"
   },
   actions: {
-    listStyleType: "none",
-    display: "flex",
-    justifyContent: "flex-end"
+    textAlign: "right"
   },
-  actionButton: {
+  action: {
     marginLeft: theme.spacing(1),
-    padding: "2px",
-    textAlign: "center",
-    border: "2px solid #DDD",
-    borderRadius: "5px"
+    color: "#f55"
   },
-  emailMeta: { 
-    paddingLeft: 0,
-    marginTop: theme.spacing(2), 
-    backgroundColor: "#eee",
-    listStyleType: "none"
-  },
-  emailMetaItem: {
-    padding: `0px ${theme.spacing(1)}px`
-  },
-  emailBody: {
-    marginTop: theme.spacing(1), 
-    padding: theme.spacing(1),
-    border: "1px solid white"
+  title: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2)
   }
 }));
 
@@ -54,24 +53,39 @@ export default ({
   return (
     <article className={classes.container}>
       <header className={classes.header}>
-        <h1>{title}</h1>
-        <ul className={classes.actions}>
-          <li><button className={classes.actionButton}>&#128465;</button></li>
-          <li><button className={classes.actionButton}>spam</button></li>
-          <li><button className={classes.actionButton}>send</button></li>
-        </ul>
+        <div className={classes.date}>
+          <Typography variant="caption">
+            {(new Date(date)).toLocaleString()}
+          </Typography>
+        </div>
+        <div className={classes.actions}>
+          <IconButton className={classes.action}><Icon>delete</Icon></IconButton>
+          <IconButton className={classes.action}><Icon>not_interested</Icon></IconButton>
+        </div>
       </header>
-      <ul className={classes.emailMeta}>
-        <hr/>
-        <li className={classes.emailMetaItem}>From: {from.name}</li><hr/>
-        <li className={classes.emailMetaItem}>To: {to.name}</li><hr/>
-        <li className={classes.emailMetaItem}>
-          { (new Date(date)).toLocaleString() }
-        </li>
-        <hr/>
-      </ul>  
-      <section className={classes.emailBody}>
-        {body}
+      <List className={classes.addressList}>
+        <ListItem dense disableGutters>
+          <Button><Typography variant="overline">from</Typography></Button>
+          <ListItemAvatar>
+            <Avatar><Icon>image</Icon></Avatar>
+          </ListItemAvatar>
+          <ListItemText primary={from.name} secondary={from.address} />
+        </ListItem>
+        <Divider variant="inset" component="li" />
+        <ListItem dense disableGutters>
+          <Button><Typography variant="overline">to</Typography></Button>
+          <ListItemAvatar>
+            <Avatar><Icon>image</Icon></Avatar>
+          </ListItemAvatar>
+          <ListItemText primary={to.name} secondary={to.address} />
+        </ListItem>
+        <Divider variant="inset" component="li" />
+      </List>
+      <Typography variant="h4" component="h2" className={classes.title}>{title}</Typography>
+      <section className={classes.body}>
+        <Typography variant="body1">
+          {body}
+        </Typography>
       </section>
     </article>
   )
