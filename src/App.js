@@ -111,7 +111,7 @@ export default class extends React.Component {
       },
       to: {
         name: "Unknown",
-        address: msgData.recepient
+        address: msgData.destination
       },
       categoryId: "sent",
       date: (new Date()).toISOString(),

@@ -106,7 +106,7 @@ class Layout extends React.Component {
                 component="h1" 
                 className={classes.logo}
               >
-                <Link color="inherit" href="/" underline="none">
+                <Link color="inherit" href="" underline="none">
                   MUI MailBox
                 </Link>
               </Typography>
