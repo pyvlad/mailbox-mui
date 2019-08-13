@@ -10,7 +10,8 @@ import {
   ListItemAvatar,
   ListItemText,
   Avatar,
-  Divider
+  Divider,
+  Tooltip
 } from '@material-ui/core'
 import DialogConfirm from './DialogConfirm'
 
@@ -61,7 +62,6 @@ class MessageSingle extends React.Component {
   }
 
   handleDialogClose() {
-    console.log("closing")
     this.setState({
       isDeleteConfirmOpen: false,
       isSpamConfirmOpen: false
@@ -69,9 +69,6 @@ class MessageSingle extends React.Component {
   }
 
   render() {
-    console.log("rerendering")
-    console.log(this.state)
-
     const {
       classes,
       id,
@@ -101,9 +98,11 @@ class MessageSingle extends React.Component {
               onConfirm={onMessageDelete}
               onCancel={this.handleDialogClose}
             />
-            <IconButton className={classes.action} onClick={() => this.handleConfirm("delete")}>
-              <Icon>delete</Icon>
-            </IconButton>
+            <Tooltip title="delete">
+              <IconButton className={classes.action} onClick={() => this.handleConfirm("delete")}>
+                <Icon>delete</Icon>
+              </IconButton>
+            </Tooltip>
             <DialogConfirm 
               open={this.state.isSpamConfirmOpen}
               dialogTitle="Confirm as Spam"
@@ -111,9 +110,11 @@ class MessageSingle extends React.Component {
               onConfirm={onMessageSpam}
               onCancel={this.handleDialogClose}
             />
-            <IconButton className={classes.action} onClick={() => this.handleConfirm("spam")}>
-              <Icon>not_interested</Icon>
-            </IconButton>
+            <Tooltip title="mark as spam">
+              <IconButton className={classes.action} onClick={() => this.handleConfirm("spam")}>
+                <Icon>not_interested</Icon>
+              </IconButton>
+            </Tooltip>
           </div>
         </header>
         <List className={classes.addressList}>
