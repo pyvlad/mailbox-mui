@@ -3,10 +3,8 @@ import React from 'react'
 import Layout from './components/Layout'
 import NavMenu from './components/NavMenu'
 import MessageFolders from './components/MessageFolders'
-import MessageList from './components/MessageList'
-import MessageSingle from './components/MessageSingle'
-import MessageCreateForm from './components/MessageCreateForm'
 import MessageCreateButton from './components/MessageCreateButton'
+import Content from './components/Content'
 
 import mockData from './data'
 
@@ -134,35 +132,19 @@ export default class extends React.Component {
 
   // TODO: use router to dispatch the views
   render() {
-    let content
+    // TODO: is this OK in render? should be pure function
+    let messages = this.getMessagesByCategory(this.state.currentCategory.id) 
 
-    if (this.state.viewType === "categoryView") {
-      let {name, id} = this.state.currentCategory
-      let messages = this.getMessagesByCategory(id) // TODO: is this OK in render?
-      content = (
-        <MessageList 
-          categoryName={name}
-          messages={messages}
-          onMessageSelect={this.handleMessageSelect}
-        />
-      )
-    } 
-    else if (this.state.viewType === "messageView") {
-      content = (
-        <MessageSingle 
-          {...this.state.currentMessage } 
-          onMessageDelete={() => this.handleMessageDelete(this.state.currentMessage.id)}
-          onMessageSpam={() => this.handleMessageSpam(this.state.currentMessage.id)}
-        />
-      )
-    }
-    else if (this.state.viewType === "messageCreate") {
-      content = (
-        <MessageCreateForm 
-          onMessageSend={this.handleMessageSend} 
-        />
-      )
-    }
+    let content = <Content 
+      viewType={this.state.viewType}
+      categoryName={this.state.currentCategory.name}
+      messages={messages}
+      currentMessage={this.state.currentMessage}
+      handleMessageSelect={this.handleMessageSelect}
+      handleMessageDelete={this.handleMessageDelete}
+      handleMessageSpam={this.handleMessageSpam}
+      handleMessageSend={this.handleMessageSend}
+    />
 
     let navMenu = <NavMenu>
       <MessageCreateButton  
@@ -177,7 +159,6 @@ export default class extends React.Component {
         onCategorySelect={this.handleCategorySelect}
       />
     </NavMenu>
-
 
     return (
       <Layout 
