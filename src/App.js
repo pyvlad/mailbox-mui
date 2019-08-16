@@ -1,4 +1,5 @@
 import React from 'react'
+import {withRouter} from 'react-router-dom'
 
 import Layout from './components/Layout'
 import NavMenu from './components/NavMenu'
@@ -9,13 +10,12 @@ import Content from './components/Content'
 import mockData from './data'
 
 
-export default class extends React.Component {
+class App extends React.Component {
   constructor(props) {
     super(props)
     this.categories = mockData.categories // categories aren't supposed to change
     this.messages = mockData.messages     // imitate DB store
     this.state = {
-      viewType: "categoryView",
       currentCategory: {
         id: "all",
         name: "All Messages"
@@ -48,28 +48,30 @@ export default class extends React.Component {
     return msgList
   }
 
+  // TODO: this looks BAD, currently shown components are being rerendered
+  // before the logic of what is to be rendered is updated
   handleCategorySelect(categoryId) {
     this.setState({
-      viewType: "categoryView",
       currentCategory: this.categories.filter((cat) => (cat.id === categoryId))[0],
       currentMessage: {}
     })
+    this.props.history.replace(`/category/${categoryId}`)
   }
 
   handleMessageSelect(messageId) {
     this.setState({
-      viewType: "messageView",
       currentCategory: {},
       currentMessage: this.messages.filter((msg) => (msg.id === messageId))[0]
     })
+    this.props.history.replace(`/message/${messageId}`)
   }
 
   handleMessageCreate() {
     this.setState({
-      viewType: "messageCreate",
       currentCategory: {},
       currentMessage: {}
     })
+    this.props.history.replace(`/create`)
   }
 
   handleMessageDelete(messageId) {
@@ -83,6 +85,7 @@ export default class extends React.Component {
       },
       currentMessage: {}
     })
+    this.props.history.replace('/category/all')
   }
 
   handleMessageSpam(messageId) {
@@ -90,13 +93,14 @@ export default class extends React.Component {
     msgObj["categoryId"] = "spam"
 
     this.setState({
-      viewType: "categoryView",
       currentCategory: {
         id: "all",
         name: "All Messages"
       },
       currentMessage: {}
     })
+
+    this.props.history.replace('/category/all')
   }
  
   // this is here mostly to imitate backend 
@@ -121,13 +125,13 @@ export default class extends React.Component {
     this.messages.push(msgObj)
 
     this.setState({
-      viewType: "categoryView",
       currentCategory: {
         id: "all",
         name: "All Messages"
       },
       currentMessage: {}
     })
+    this.props.history.replace('/category/all')
   }
 
   // TODO: use router to dispatch the views
@@ -136,7 +140,6 @@ export default class extends React.Component {
     let messages = this.getMessagesByCategory(this.state.currentCategory.id) 
 
     let content = <Content 
-      viewType={this.state.viewType}
       categoryName={this.state.currentCategory.name}
       messages={messages}
       currentMessage={this.state.currentMessage}
@@ -168,3 +171,5 @@ export default class extends React.Component {
     )
   }
 }
+
+export default withRouter(App)

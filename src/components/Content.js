@@ -1,43 +1,67 @@
 import React from 'react'
+import {Switch, Route} from 'react-router-dom'
 
 import MessageList from './MessageList'
 import MessageSingle from './MessageSingle'
 import MessageCreateForm from './MessageCreateForm'
 
 
-export default (props) => {
+const CategoryView = (props) => {
   const {
-    viewType,
     categoryName,
     messages,
+    handleMessageSelect
+  } = props
+
+  return <MessageList 
+    categoryName={categoryName}
+    messages={messages}
+    onMessageSelect={handleMessageSelect}
+  />
+}
+
+const MessageView = (props) => {
+  const {
     currentMessage,
-    handleMessageSelect,
     handleMessageDelete,
-    handleMessageSpam,
+    handleMessageSpam
+  } = props
+
+  return <MessageSingle 
+    {...currentMessage} 
+    onMessageDelete={() => handleMessageDelete(currentMessage.id)}
+    onMessageSpam={() => handleMessageSpam(currentMessage.id)}
+  />
+}
+
+
+const MessageCreateView = (props) => {
+  const {
     handleMessageSend
   } = props
 
-  let content
+  return <MessageCreateForm 
+    onMessageSend={handleMessageSend} 
+  />
+}
 
-  if (viewType === "categoryView") {
-    content = <MessageList 
-      categoryName={categoryName}
-      messages={messages}
-      onMessageSelect={handleMessageSelect}
-    />
-  }
-  else if (viewType === "messageView") {
-    content = <MessageSingle 
-      {...currentMessage} 
-      onMessageDelete={() => handleMessageDelete(currentMessage.id)}
-      onMessageSpam={() => handleMessageSpam(currentMessage.id)}
-    />
-  }
-  else if (viewType === "messageCreate") {
-    content = <MessageCreateForm 
-      onMessageSend={handleMessageSend} 
-    />
-  }
 
-  return content
+export default (contentProps) => {
+  return (
+    <Switch>
+      <Route path="/" exact 
+        render={(props) => <CategoryView {...props} {...contentProps} />}
+      />
+      <Route path="/category" 
+        render={(props) => <CategoryView {...props} {...contentProps} />}
+      />
+      <Route path="/message" 
+        render={(props) => <MessageView {...props} {...contentProps} />}
+      />
+      <Route path="/create" 
+        render={(props) => <MessageCreateView {...props} {...contentProps} />}
+      />
+      <Route render={()=>(<div>404 NOT FOUND</div>)}/>
+    </Switch>
+  )
 }

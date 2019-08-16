@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {HashRouter as Router} from 'react-router-dom';
 
 import 'typeface-roboto';
 import { CssBaseline } from '@material-ui/core';
@@ -14,7 +15,9 @@ import theme from './theme';
 ReactDOM.render(
   <ThemeProvider theme={theme}>
     <CssBaseline />
-    <App />
+    <Router>
+      <App />
+    </Router>
   </ThemeProvider>,
   document.getElementById('root')
 );
