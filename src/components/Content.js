@@ -1,61 +1,21 @@
 import React from 'react'
-import {Switch, Route} from 'react-router-dom'
+import {Switch, Route, Redirect} from 'react-router-dom'
 
-import MessageList from './MessageList'
-import MessageSingle from './MessageSingle'
-import MessageCreateForm from './MessageCreateForm'
-
-
-const CategoryView = (props) => {
-  const {
-    categoryName,
-    messages,
-    handleMessageSelect
-  } = props
-
-  return <MessageList 
-    categoryName={categoryName}
-    messages={messages}
-    onMessageSelect={handleMessageSelect}
-  />
-}
-
-const MessageView = (props) => {
-  const {
-    currentMessage,
-    handleMessageDelete,
-    handleMessageSpam
-  } = props
-
-  return <MessageSingle 
-    {...currentMessage} 
-    onMessageDelete={() => handleMessageDelete(currentMessage.id)}
-    onMessageSpam={() => handleMessageSpam(currentMessage.id)}
-  />
-}
-
-
-const MessageCreateView = (props) => {
-  const {
-    handleMessageSend
-  } = props
-
-  return <MessageCreateForm 
-    onMessageSend={handleMessageSend} 
-  />
-}
+import CategoryView from './CategoryView'
+import MessageView from './MessageView'
+import MessageCreateView from './MessageCreateView'
 
 
 export default (contentProps) => {
   return (
     <Switch>
       <Route path="/" exact 
+        render={(props) => <Redirect to='/category/all'/>} />}
+      />
+      <Route path="/category/:id" 
         render={(props) => <CategoryView {...props} {...contentProps} />}
       />
-      <Route path="/category" 
-        render={(props) => <CategoryView {...props} {...contentProps} />}
-      />
-      <Route path="/message" 
+      <Route path="/message/:id" 
         render={(props) => <MessageView {...props} {...contentProps} />}
       />
       <Route path="/create" 

@@ -52,7 +52,6 @@ class MessageSingle extends React.Component {
   }
 
   handleConfirm(what) {
-    console.log("confirmation required", what)
     if (what === "spam") {
       this.setState({isSpamConfirmOpen: true})
     }
@@ -71,10 +70,8 @@ class MessageSingle extends React.Component {
   render() {
     const {
       classes,
-      id,
       from,
       to,
-      categoryId,
       date,
       title,
       body,
