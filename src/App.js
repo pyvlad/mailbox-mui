@@ -1,8 +1,19 @@
 import React from 'react'
 
+// Material-UI
+import 'typeface-roboto'
+import { CssBaseline } from '@material-ui/core'
+// Material-UI components come with a default theme
+// To customize the theme we need to use ThemeProvider 
+// to inject a new theme
+import { ThemeProvider } from '@material-ui/styles'
+import theme from './theme'
+// Routing
+import { HashRouter as Router } from 'react-router-dom'
+
 import Layout from './components/Layout'
-import Navigation from './components/Navigation'
-import Content from './components/Content'
+import Navigation from './views/Navigation'
+import Content from './views/Content'
 
 import mockData from './data'
 
@@ -83,24 +94,29 @@ class App extends React.Component {
 
   render() {
     return (
-      <Layout 
-        leftPane={
-          <Navigation 
-            categories={this.categories}
-            getMessagesByCategoryId={this.getMessagesByCategoryId}
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Router>
+          <Layout 
+            leftPane={
+              <Navigation 
+                categories={this.categories}
+                getMessagesByCategoryId={this.getMessagesByCategoryId}
+              />
+            }
+            rightPane={
+              <Content 
+                getMessagesByCategoryId={this.getMessagesByCategoryId}
+                getMessageById={this.getMessageById}
+                getCategoryById={this.getCategoryById}
+                deleteMessageById={this.deleteMessageById}
+                updateMessageCategory={this.updateMessageCategory}
+                createNewMessage={this.createNewMessage}
+              />
+            }
           />
-        }
-        rightPane={
-          <Content 
-            getMessagesByCategoryId={this.getMessagesByCategoryId}
-            getMessageById={this.getMessageById}
-            getCategoryById={this.getCategoryById}
-            deleteMessageById={this.deleteMessageById}
-            updateMessageCategory={this.updateMessageCategory}
-            createNewMessage={this.createNewMessage}
-          />
-        }
-      />
+        </Router>
+      </ThemeProvider>
     )
   }
 }

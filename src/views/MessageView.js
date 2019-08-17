@@ -1,5 +1,5 @@
 import React from 'react'
-import MessageSingle from './MessageSingle'
+import MessageSingle from '../components/MessageSingle'
 
 
 class MessageView extends React.Component {

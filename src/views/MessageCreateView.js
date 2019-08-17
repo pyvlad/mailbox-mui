@@ -1,5 +1,5 @@
 import React from 'react'
-import MessageCreateForm from './MessageCreateForm'
+import MessageCreateForm from '../components/MessageCreateForm'
 
 
 class MessageCreateView extends React.Component {

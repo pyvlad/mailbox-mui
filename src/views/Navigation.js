@@ -1,9 +1,9 @@
 import React from 'react'
 import {withRouter} from 'react-router-dom'
 
-import NavMenu from './NavMenu'
-import MessageCreateButton from './MessageCreateButton'
-import MessageFolders from './MessageFolders'
+import NavMenu from '../components/NavMenu'
+import MessageCreateButton from '../components/MessageCreateButton'
+import MessageFolders from '../components/MessageFolders'
 
 
 class Navigation extends React.Component {
