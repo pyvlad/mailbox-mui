@@ -44,7 +44,7 @@ export default (props) => {
                 onClick={() => onCategorySelect(id)}
               >
                 <ListItemIcon>
-                  <Badge color="primary" badgeContent={amount}>
+                  <Badge color="secondary" badgeContent={amount}>
                     <FolderIcon />
                   </Badge>
                 </ListItemIcon>

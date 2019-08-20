@@ -11,7 +11,8 @@ import {
   Typography,
   Link,
   Avatar,
-  Icon
+  Icon,
+  Button
 } from '@material-ui/core'
 import NavButton from './NavButton'
 
@@ -26,6 +27,11 @@ const useStyles = theme => ({
     padding: theme.spacing(1)
   },
   header: {
+    backgroundColor: (
+      theme.palette.type === "light" 
+      ? theme.palette.primary.light
+      : theme.palette.primary.dark
+    ),
     padding: theme.spacing(1)
   },
   logo: {
@@ -80,7 +86,8 @@ class Layout extends React.Component {
       width,
       theme,
       leftPane, 
-      rightPane
+      rightPane,
+      toggleTheme
     } = this.props
     
     let leftPaneGrid = (
@@ -110,6 +117,9 @@ class Layout extends React.Component {
                   MUI MailBox
                 </Link>
               </Typography>
+              <Button onClick={toggleTheme}>
+                <Icon>invert_colors</Icon>
+              </Button>
               <Avatar className={classes.avatar}>
                 <Icon>person</Icon>
               </Avatar>

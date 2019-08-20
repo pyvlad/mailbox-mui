@@ -7,7 +7,7 @@ import { CssBaseline } from '@material-ui/core'
 // To customize the theme we need to use ThemeProvider 
 // to inject a new theme
 import { ThemeProvider } from '@material-ui/styles'
-import theme from './theme'
+import { lightTheme, darkTheme } from './theme'
 // Routing
 import { HashRouter as Router } from 'react-router-dom'
 
@@ -23,6 +23,12 @@ class App extends React.Component {
     super(props)
     this.categories = mockData.categories // categories aren't supposed to change
     this.messages = mockData.messages     // imitate DB store
+
+    this.state = {
+      theme: lightTheme
+    }
+
+    this.toggleTheme = this.toggleTheme.bind(this)
 
     this.getMessagesByCategoryId = this.getMessagesByCategoryId.bind(this)
     this.getMessageById = this.getMessageById.bind(this)
@@ -91,10 +97,15 @@ class App extends React.Component {
     this.messages.push(msgObj)
   }
 
+  toggleTheme() {
+    this.setState({
+      theme: (this.state.theme.palette.type === "light") ? darkTheme : lightTheme
+    })
+  }
 
   render() {
     return (
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={this.state.theme}>
         <CssBaseline />
         <Router>
           <Layout 
@@ -114,6 +125,7 @@ class App extends React.Component {
                 createNewMessage={this.createNewMessage}
               />
             }
+            toggleTheme={this.toggleTheme}
           />
         </Router>
       </ThemeProvider>
