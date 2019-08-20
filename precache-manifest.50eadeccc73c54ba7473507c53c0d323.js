@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "947316b02f15b8f6fa45c85fd8019d94",
+    "revision": "e6722005f1cc043f385df97badb9ff0e",
     "url": "/mailbox-mui/index.html"
   },
   {
-    "revision": "0436622036e0c68fbcbe",
+    "revision": "00bf61629a7cb1ec6171",
     "url": "/mailbox-mui/static/css/2.ce1fbf00.chunk.css"
   },
   {
-    "revision": "0436622036e0c68fbcbe",
-    "url": "/mailbox-mui/static/js/2.60dda2dd.chunk.js"
+    "revision": "00bf61629a7cb1ec6171",
+    "url": "/mailbox-mui/static/js/2.72709548.chunk.js"
   },
   {
-    "revision": "8813f83ebf91848039b1",
-    "url": "/mailbox-mui/static/js/main.3d07401e.chunk.js"
+    "revision": "d80bf5dbf89b48789098",
+    "url": "/mailbox-mui/static/js/main.09c61a6b.chunk.js"
   },
   {
     "revision": "28b0d4d1c29e24b9b159",
