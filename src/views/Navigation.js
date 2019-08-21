@@ -9,9 +9,12 @@ import MessageFolders from '../components/MessageFolders'
 class Navigation extends React.Component {
   constructor(props) {
     super(props)
+
+    this.API = this.props.API
     this.state = {
-      categories: this.props.categories
+      categories: this.API.categories
     }
+
     this.handleCategorySelect = this.handleCategorySelect.bind(this)
     this.handleMessageCreate = this.handleMessageCreate.bind(this)
   }
@@ -25,8 +28,8 @@ class Navigation extends React.Component {
   }
 
   fetchCategoryData() {
-    return this.props.categories.map(
-      (cat) => Object.assign(cat, {amount: this.props.getMessagesByCategoryId(cat.id).length})
+    return this.API.categories.map(
+      (cat) => Object.assign(cat, {amount: this.API.getMessagesByCategoryId(cat.id).length})
     )
   }
 
