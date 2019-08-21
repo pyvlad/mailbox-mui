@@ -13,20 +13,26 @@ class CategoryView extends React.Component {
     this.handleMessageSelect = this.handleMessageSelect.bind(this)
   }
 
-  // TODO: repetition
+  updateData = () => {
+    const { match } = this.props
+    const categoryId = match.params.id
+    let promise = Promise.all([
+      this.API.getCategoryById(categoryId),
+      this.API.getMessagesByCategoryId(categoryId)
+    ])
+    promise.then(([category, messages]) => this.setState({
+        category: category,
+        messages: messages
+    }))
+  }
+
   componentDidMount() {
-    this.setState({
-      category: this.API.getCategoryById(this.props.match.params.id),
-      messages: this.API.getMessagesByCategoryId(this.props.match.params.id)
-    })
+    this.updateData()
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.match.params.id !== prevProps.match.params.id) {
-      this.setState({
-        category: this.API.getCategoryById(this.props.match.params.id),
-        messages: this.API.getMessagesByCategoryId(this.props.match.params.id)
-      })
+      this.updateData()
     }
   }
 

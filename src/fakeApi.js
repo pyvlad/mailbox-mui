@@ -33,7 +33,12 @@ class ApiService {
           dateB = new Date(b.date);
       return dateB - dateA;
     })
-    return msgList
+    let promise = new Promise(
+      function(resolve, reject) {
+        setTimeout(() => resolve(msgList), 1000)
+      }
+    )
+    return promise
   }
 
   getMessageById = (messageId) => {

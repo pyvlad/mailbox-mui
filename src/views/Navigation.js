@@ -27,23 +27,29 @@ class Navigation extends React.Component {
     this.props.history.replace(`/create`)
   }
 
-  fetchCategoryData() {
-    return this.API.categories.map(
-      (cat) => Object.assign(cat, {amount: this.API.getMessagesByCategoryId(cat.id).length})
+  updateCategoryData() {
+    let requests = this.API.categories.map(
+      (cat) => this.API.getMessagesByCategoryId(cat.id)
     )
+    Promise
+      .all(requests)
+      .then((groupedMessages) => {
+        return this.API.categories.map(
+          (cat, index) => Object.assign(cat, {amount: groupedMessages[index].length})
+        )
+      })
+      .then((categoryData) => this.setState({
+        categories: categoryData
+      }))
   }
 
   componentDidMount() {
-    this.setState({
-      categories: this.fetchCategoryData()
-    })
+    this.updateCategoryData()
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.location.pathname !== prevProps.location.pathname) {
-      this.setState({
-        categories: this.fetchCategoryData()
-      })
+      this.updateCategoryData()
     }
   }
 
