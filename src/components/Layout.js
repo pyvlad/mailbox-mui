@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import {withStyles, withTheme} from '@material-ui/styles'
 import withWidth from '@material-ui/core/withWidth'
 import {
@@ -192,4 +193,5 @@ class Layout extends React.Component {
   }
 }
 
-export default withTheme(withStyles(useStyles)(withWidth()(Layout)))
+export default connect((state) => ({isLoading: state.isLoading}) )(
+  withTheme(withStyles(useStyles)(withWidth()(Layout))))

@@ -1,5 +1,7 @@
 import React from 'react'
 import MessageCreateForm from '../components/MessageCreateForm'
+import { connect } from 'react-redux'
+import * as actions from '../actions'
 
 
 class MessageCreateView extends React.Component {
@@ -10,11 +12,11 @@ class MessageCreateView extends React.Component {
   }
 
   handleMessageSend(msgData) {
-    const { toggleLoading } = this.props
+    const { startLoading, stopLoading } = this.props
 
-    toggleLoading()
+    startLoading()
     this.API.createNewMessage(msgData)
-      .then(() => toggleLoading())
+      .then(() => stopLoading())
       .then(() => this.props.history.replace('/category/all'))
   }
 
@@ -25,4 +27,4 @@ class MessageCreateView extends React.Component {
   }
 }
 
-export default MessageCreateView
+export default connect(undefined, actions)(MessageCreateView)

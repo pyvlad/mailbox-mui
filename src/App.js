@@ -17,16 +17,20 @@ import Content from './views/Content'
 
 import ApiService from './fakeApi'
 
+// Redux stuff
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'  // already implements subscription for updates
+import reducer from './reducer'
+const store = createStore(reducer)
+
 
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      theme: lightTheme,
-      isLoading: false
+      theme: lightTheme
     }
     this.toggleTheme = this.toggleTheme.bind(this)
-    this.toggleLoading = this.toggleLoading.bind(this)
     this.API = new ApiService()
   }
 
@@ -36,25 +40,20 @@ class App extends React.Component {
     })
   }
 
-  toggleLoading() {
-    this.setState({
-      isLoading: !this.state.isLoading
-    })
-  }
-
   render() {
     return (
-      <ThemeProvider theme={this.state.theme}>
-        <CssBaseline />
-        <Router>
-          <Layout 
-            leftPane={<Navigation API={this.API} toggleLoading={this.toggleLoading} />}
-            rightPane={<Content API={this.API} toggleLoading={this.toggleLoading} />}
-            toggleTheme={this.toggleTheme}
-            isLoading={this.state.isLoading}
-          />
-        </Router>
-      </ThemeProvider>
+      <Provider store={store} >
+        <ThemeProvider theme={this.state.theme}>
+          <CssBaseline />
+          <Router>
+            <Layout 
+              leftPane={<Navigation API={this.API} />}
+              rightPane={<Content API={this.API} />}
+              toggleTheme={this.toggleTheme}
+            />
+          </Router>
+        </ThemeProvider>
+      </Provider>
     )
   }
 }

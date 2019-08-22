@@ -1,5 +1,7 @@
 import React from 'react'
 import MessageList from '../components/MessageList'
+import { connect } from 'react-redux'
+import * as actions from '../actions'
 
 
 class CategoryView extends React.Component {
@@ -14,10 +16,10 @@ class CategoryView extends React.Component {
   }
 
   updateData = () => {
-    const { match, toggleLoading } = this.props
+    const { match, startLoading, stopLoading } = this.props
     const categoryId = match.params.id
 
-    toggleLoading()
+    startLoading()
     let promise = Promise.all([
       this.API.getCategoryById(categoryId),
       this.API.getMessagesByCategoryId(categoryId)
@@ -27,7 +29,7 @@ class CategoryView extends React.Component {
         category: category,
         messages: messages
     }))
-      .then(() => toggleLoading())
+      .then(() => stopLoading())
   }
 
   componentDidMount() {
@@ -56,4 +58,4 @@ class CategoryView extends React.Component {
 }
 
 
-export default CategoryView
+export default connect(undefined, actions)(CategoryView)

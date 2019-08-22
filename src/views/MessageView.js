@@ -1,5 +1,7 @@
 import React from 'react'
 import MessageSingle from '../components/MessageSingle'
+import { connect } from 'react-redux'
+import * as actions from '../actions'
 
 
 class MessageView extends React.Component {
@@ -14,16 +16,16 @@ class MessageView extends React.Component {
   }
 
   updateData = () => {
-    const { match, toggleLoading } = this.props
+    const { match, startLoading, stopLoading } = this.props
 
-    toggleLoading()
+    startLoading()
     this.API.getMessageById(parseInt(match.params.id))
       .then((msg) => {
         this.setState({
           message: msg
         })
       })
-      .then(() => toggleLoading())
+      .then(() => stopLoading())
   }
 
   componentDidMount() {
@@ -37,20 +39,20 @@ class MessageView extends React.Component {
   }
 
   handleMessageDelete(messageId) {
-    const { toggleLoading } = this.props
+    const { startLoading, stopLoading } = this.props
 
-    toggleLoading()
+    startLoading()
     this.API.deleteMessageById(messageId)
-      .then(() => toggleLoading())
+      .then(() => stopLoading())
       .then(() => this.props.history.replace('/category/all'))
   }
 
   handleMessageSpam(messageId) {
-    const { toggleLoading } = this.props
+    const { startLoading, stopLoading } = this.props
 
-    toggleLoading()
+    startLoading()
     this.API.updateMessageCategory(messageId, "spam")
-      .then(() => toggleLoading())
+      .then(() => stopLoading())
       .then(() => this.props.history.replace('/category/all'))
   }
 
@@ -65,4 +67,4 @@ class MessageView extends React.Component {
   }
 }
 
-export default MessageView
+export default connect(undefined, actions)(MessageView)
