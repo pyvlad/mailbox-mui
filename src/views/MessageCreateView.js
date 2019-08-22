@@ -10,8 +10,12 @@ class MessageCreateView extends React.Component {
   }
 
   handleMessageSend(msgData) {
+    const { toggleLoading } = this.props
+
+    toggleLoading()
     this.API.createNewMessage(msgData)
-    this.props.history.replace('/category/all')
+      .then(() => toggleLoading())
+      .then(() => this.props.history.replace('/category/all'))
   }
 
   render() {

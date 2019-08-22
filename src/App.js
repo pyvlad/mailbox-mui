@@ -22,9 +22,11 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      theme: lightTheme
+      theme: lightTheme,
+      isLoading: false
     }
     this.toggleTheme = this.toggleTheme.bind(this)
+    this.toggleLoading = this.toggleLoading.bind(this)
     this.API = new ApiService()
   }
 
@@ -34,15 +36,22 @@ class App extends React.Component {
     })
   }
 
+  toggleLoading() {
+    this.setState({
+      isLoading: !this.state.isLoading
+    })
+  }
+
   render() {
     return (
       <ThemeProvider theme={this.state.theme}>
         <CssBaseline />
         <Router>
           <Layout 
-            leftPane={<Navigation API={this.API} />}
-            rightPane={<Content API={this.API} />}
+            leftPane={<Navigation API={this.API} toggleLoading={this.toggleLoading} />}
+            rightPane={<Content API={this.API} toggleLoading={this.toggleLoading} />}
             toggleTheme={this.toggleTheme}
+            isLoading={this.state.isLoading}
           />
         </Router>
       </ThemeProvider>

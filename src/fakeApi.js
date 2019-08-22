@@ -13,6 +13,14 @@ class ApiService {
   categories = mockData.categories // categories aren't supposed to change
   messages = mockData.messages     // imitate DB store
 
+  getResponsePromise = (result) => {
+    return new Promise(
+      function(resolve, reject) {
+        setTimeout(() => resolve(result), 1000 * Math.random())
+      }
+    )
+  }
+
   /* method to consume JSON resources (don't need this in fake API) */
   async getResource(url) {
     const response = await fetch(url)
@@ -24,6 +32,7 @@ class ApiService {
   
   // FAKE BACKEND API
   getMessagesByCategoryId = (categoryId) => {
+    console.log("getting messages by category Id", categoryId)
     let msgList = this.messages
     if (categoryId !== "all") {
       msgList = this.messages.filter(msg => msg.categoryId === categoryId)
@@ -33,38 +42,42 @@ class ApiService {
           dateB = new Date(b.date);
       return dateB - dateA;
     })
-    let promise = new Promise(
-      function(resolve, reject) {
-        setTimeout(() => resolve(msgList), 1000)
-      }
-    )
-    return promise
+    return this.getResponsePromise(msgList)
   }
 
   getMessageById = (messageId) => {
-    return this.messages.filter((msg) => (msg.id === messageId))[0]
+    console.log("getting message", messageId)
+    return this.getResponsePromise(
+      this.messages.filter((msg) => (msg.id === messageId))[0]
+    )
   }
 
-  getCategoryById = (categoryId) => {
-    if (categoryId === "all") {
-      return {
-        id: "all",
-        name: "All Messages"
-      }
-    }
-    return this.categories.filter((cat) => (cat.id === categoryId))[0]
+  getCategoryById = async (categoryId) => {
+    console.log("getting category", categoryId)
+    let category = (categoryId === "all") 
+      ? {
+          id: "all",
+          name: "All Messages"
+        }
+      : this.categories.filter((cat) => (cat.id === categoryId))[0]
+    return await this.getResponsePromise(category)
   }
 
-  deleteMessageById = (messageId) => {
+  deleteMessageById = async (messageId) => {
+    console.log("deleting message")
     this.messages = this.messages.filter((msg) => (msg.id !== messageId))
+    return await this.getResponsePromise(null)
   }
 
-  updateMessageCategory = (messageId, categoryId) => {
+  updateMessageCategory = async (messageId, categoryId) => {
+    console.log("updating message category")
     const msgObj = this.messages.find((msg) => (msg.id === messageId))
     msgObj["categoryId"] = categoryId
+    return await this.getResponsePromise(null)
   }
 
-  createNewMessage = (msgData) => {
+  createNewMessage = async (msgData) => {
+    console.log("creating new message")
     const msgObj = {
       id: Math.max(...this.messages.map((item)=>item.id)) + 1,
       from: {
@@ -81,6 +94,7 @@ class ApiService {
       body: msgData.body
     }
     this.messages.push(msgObj)
+    return await this.getResponsePromise(null)
   }
 }
 

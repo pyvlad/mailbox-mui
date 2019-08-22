@@ -12,7 +12,8 @@ import {
   Link,
   Avatar,
   Icon,
-  Button
+  Button,
+  CircularProgress
 } from '@material-ui/core'
 import NavButton from './NavButton'
 
@@ -61,6 +62,20 @@ const useStyles = theme => ({
   },
   avatar: {
     margin: theme.spacing(1)
+  },
+  loaderContainer: {
+    backgroundColor: "RGBA(0,0,0,0.5)",
+    width: "100%",
+    height: "100%",
+    top: 0,
+    left: 0,
+    position: "fixed",
+    zIndex: 100000
+  },
+  loader: {
+    position: "fixed",
+    top: "45%",
+    left: "45%"
   }
 });
 
@@ -87,7 +102,8 @@ class Layout extends React.Component {
       theme,
       leftPane, 
       rightPane,
-      toggleTheme
+      toggleTheme,
+      isLoading
     } = this.props
     
     let leftPaneGrid = (
@@ -100,6 +116,13 @@ class Layout extends React.Component {
 
     return (
       <div className={classes.root}>
+        {
+          isLoading
+          ? <div className={classes.loaderContainer}>
+              <CircularProgress className={classes.loader} />
+            </div>
+          : null
+        }
         <AppBar position="static" className={classes.header}>
           <Container className={classes.container}>
             <Toolbar>
