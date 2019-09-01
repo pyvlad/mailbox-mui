@@ -37,7 +37,7 @@ const MessageCreateFormDumb = (props) => {
 
   return (
     <div className={classes.formContainer}>
-      <form action='' method='get'>
+      <form action='' method='get' onSubmit={handleSubmit}>
         <Typography 
           variant="h5" 
           component="h2" 
@@ -90,8 +90,12 @@ const MessageCreateFormDumb = (props) => {
           <Button 
             variant="contained" 
             color="primary" 
-            onClick={handleSubmit}
+            type="submit"
           >
+            {/* Docs:
+            "Any other properties supplied will be provided 
+            to the root element (ButtonBase)."
+            ButtonBase accepts the "type" prop.*/}
             Send
           </Button>
         </div>
