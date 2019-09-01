@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.js": "/mailbox-mui/static/js/main.c05d2c98.chunk.js",
-    "main.js.map": "/mailbox-mui/static/js/main.c05d2c98.chunk.js.map",
+    "main.js": "/mailbox-mui/static/js/main.1d2ba364.chunk.js",
+    "main.js.map": "/mailbox-mui/static/js/main.1d2ba364.chunk.js.map",
     "runtime~main.js": "/mailbox-mui/static/js/runtime~main.6a75395d.js",
     "runtime~main.js.map": "/mailbox-mui/static/js/runtime~main.6a75395d.js.map",
     "static/css/2.ce1fbf00.chunk.css": "/mailbox-mui/static/css/2.ce1fbf00.chunk.css",
-    "static/js/2.eab9148e.chunk.js": "/mailbox-mui/static/js/2.eab9148e.chunk.js",
-    "static/js/2.eab9148e.chunk.js.map": "/mailbox-mui/static/js/2.eab9148e.chunk.js.map",
+    "static/js/2.d82e9dfd.chunk.js": "/mailbox-mui/static/js/2.d82e9dfd.chunk.js",
+    "static/js/2.d82e9dfd.chunk.js.map": "/mailbox-mui/static/js/2.d82e9dfd.chunk.js.map",
     "index.html": "/mailbox-mui/index.html",
-    "precache-manifest.213b6c42e2956cd0ef98468d97f548c6.js": "/mailbox-mui/precache-manifest.213b6c42e2956cd0ef98468d97f548c6.js",
+    "precache-manifest.5871a7f8f06d683ddeb3c42928133951.js": "/mailbox-mui/precache-manifest.5871a7f8f06d683ddeb3c42928133951.js",
     "service-worker.js": "/mailbox-mui/service-worker.js",
     "static/css/2.ce1fbf00.chunk.css.map": "/mailbox-mui/static/css/2.ce1fbf00.chunk.css.map",
     "static/media/index.css": "/mailbox-mui/static/media/roboto-latin-900italic.ebf6d164.woff2"
