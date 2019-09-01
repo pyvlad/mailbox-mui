@@ -1,74 +1,30 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
+import {
+  FormControl,
+  Input,
+  InputLabel,
+  FormHelperText,
+  Typography,
+  TextField,
+  Button
+} from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
   formContainer: {
     width: "100%",
-    padding: 10,
-    backgroundColor: '#fff'
-  },
-  form: {
-    backgroundColor: "#F6F7F8",
-    border: "1px solid #D6D9DC",
-    borderRadius: "3px",
-    padding: "10px"
+    padding: theme.spacing(1)
   },
   formHeader: {
-    textAlign: "center",
-    marginBottom: "20px"
+    margin: 0
   },
   formRow: {
-    display: "flex",
-    justifyContent: "flex-start",
-    flexDirection: "column",
-    flexWrap: "wrap",
-    marginBottom: "10px"
+    width: "100%",
+    marginBottom: theme.spacing(1)
   },
-  formRowLabel: {
-    fontSize: "16px",
-    lineHeight: 1.3,
-    fontWeight: "bold",
-    padding: "5px 3px"
-  },
-  formRowInput: {
-    border: "1px solid #D6D9DC",
-    borderRadius: "3px",
-    fontSize: "14px",
-    padding: "7px"
-  },
-  formRowTextarea: {
-    fontFamily: "Helvetica", //"Arial", sans-serif,
-    fontSize: "14px",
-
-    border: "1px solid #D6D9DC",
-    borderRadius: "3px",
-    resize: "none",
-
-    height: "150px",
-    marginBottom: "10px",
-    padding: "7px"
-  },
-  submitButton: {
-    fontSize: "16px",
-    fontWeight: "bold",
-
-    color: "#FFFFFF",
-    backgroundColor: "#5995DA",
-
-    border: "none",
-    borderRadius: "3px",
-
-    padding: "10px 40px",
-    cursor: "pointer",
-
-    '&:hover': {
-      backgroundColor: "#76AEED",
-    },
-    '&:active': {
-      backgroundColor: "#407FC7",
-    }
+  buttonRow: {
+    textAlign: "center"
   }
-
 }));
 
 
@@ -81,57 +37,63 @@ const MessageCreateFormDumb = (props) => {
 
   return (
     <div className={classes.formContainer}>
-      <form action='' method='get' className={classes.form} onSubmit={handleSubmit}>
-        <header className={classes.formHeader}>
-          <h1>New Message</h1>
-        </header>
+      <form action='' method='get'>
+        <Typography 
+          variant="h5" 
+          component="h2" 
+          align="center"
+          className={classes.formHeader}
+        >
+          New Message
+        </Typography>
         <div className={classes.formRow}>
-          <label 
-            htmlFor='new-msg-destination'
-            className={classes.formRowLabel}
-          >
-            Recepient Email
-          </label>
-          <input 
-            type='email' 
-            id='new-msg-destination' 
+          <TextField
+            id="new-msg-destination"
+            label="Recepient Email"
+            type='email'
             name='destination' 
-            placeholder='bob@example.com' 
-            onChange={handleInputChange}
-            className={classes.formRowInput}
+            placeholder='bob@example.com'
+            helperText="Specify email address of the recepient."
+            onChange={handleInputChange} 
+            className={classes.formRow}
           />
         </div>
         <div className={classes.formRow}>
-          <label 
-            htmlFor='new-msg-title'
-            className={classes.formRowLabel}
-          >
-            Message Title
-          </label>
-          <input 
-            type='text' 
-            id='new-msg-title' 
-            name='title' 
-            onChange={handleInputChange}
-            className={classes.formRowInput}
-          />
+          <FormControl className={classes.formRow}>
+            <InputLabel htmlFor='new-msg-title'>
+              Message Title
+            </InputLabel>
+            <Input 
+              id='new-msg-title'
+              type='text'
+              name='title' 
+              onChange={handleInputChange}
+            />
+            <FormHelperText>
+              Specify the title of the message.
+            </FormHelperText>
+          </FormControl>
         </div>
         <div className={classes.formRow}>
-          <label 
-            htmlFor='new-msg-body'
-            className={classes.formRowLabel}
-          >
-            Message Body
-          </label>
-          <textarea 
+          <TextField
+            variant="outlined"
             id='new-msg-body' 
             name='body' 
             onChange={handleInputChange}
-            className={classes.formRowTextarea}
+            margin="dense"
+            multiline
+            rows="9"
+            className={classes.formRow}
           />
         </div>
-        <div className={classes.formRow}>
-          <button className={classes.submitButton}>Send</button>
+        <div className={classes.buttonRow}>
+          <Button 
+            variant="contained" 
+            color="primary" 
+            onClick={handleSubmit}
+          >
+            Send
+          </Button>
         </div>
       </form>
     </div>

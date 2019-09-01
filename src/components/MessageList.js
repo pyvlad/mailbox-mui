@@ -67,7 +67,7 @@ export default class extends React.Component {
     let {categoryName, messages, onMessageSelect} = this.props
     return (
       <React.Fragment>
-        <Typography variant="h4" component="h2">
+        <Typography variant="h4" component="h2" align="center">
           {categoryName}
         </Typography>
         <List>
